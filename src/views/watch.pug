@@ -1,4 +1,14 @@
 extends base.pug
 
 block content
-    h1=
+    h3 #{video.views} #{video.views === 1 ? "view" : "views"}
+    a(href=`${video.id}/edit`) Edit Video &rarr;
+
+
+
+//- 제일앞에 /가있으면 절대경로
+    a(href="/video/edit")--->localhost:4000/video/edit
+    a(href="video/edit")--->localhost:4000/videos/video/edit
+    a(href=`${video.id}/edit`)--->localhost:4000/videos/1/edit    
+
+//- video.views === 1? "view" : "views" -> video.views가 1일때, 참이면 view, 거짓이면 views
