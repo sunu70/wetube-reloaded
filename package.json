@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/sunu70/wetube-reloaded#readme",
   "dependencies": {
+    "expres": "0.0.5",
     "express": "^4.17.2",
-    "mongoose": "^6.1.6",
+    "mongoose": "^6.1.7",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
