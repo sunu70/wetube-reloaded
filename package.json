@@ -4,7 +4,7 @@
   "description": "\"The Best Video\"",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
-    "@babel/node": "^7.15.8",
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.15.8"
   }
 }
