@@ -18,8 +18,10 @@
   "homepage": "https://github.com/sunu70/wetube-reloaded#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "expres": "0.0.5",
     "express": "^4.17.2",
+    "express-session": "^1.17.2",
     "mongoose": "^6.1.7",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"

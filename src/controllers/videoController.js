@@ -2,7 +2,6 @@ import Video from "../models/Video";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
-  console.log(videos);
   return res.render("home", { pageTitle: "Home", videos });
   // 변수는 마음대로 넣어도됨 ex) {pageTitle : "Home", content : "Home!"}
   // Video.find({}, (error, videos) => {
