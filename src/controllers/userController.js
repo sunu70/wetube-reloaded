@@ -152,18 +152,18 @@ export const postEdit = async (req, res) => {
     file,
   } = req;
   console.log(file);
-  const exists = await User.exists({ $or: [{ username }, { email }] });
-  if (exists) {
-    return res.status(400).render("edit-profile", {
-      pageTitle: "Edit-Profile",
-      errorMessage: "This username/email is already taken.",
-    });
-  }
+  //const exists = await User.exists({ $or: [{ username }, { email }] });
+  //if (exists) {
+  //  return res.status(400).render("edit-profile", {
+  //    pageTitle: "Edit-Profile",
+  //    errorMessage: "This username/email is already taken.",
+  //  });
+  //}
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: Path,
-      name,
+      avatarUrl: file ? file.path : avatarUrl,
+      // = avatarlUrl이 존재하지 않는다면 기존 avatarUrl 유지
       email,
       username,
       location,
@@ -205,4 +205,14 @@ export const postChangePassword = async (req, res) => {
   await user.save();
   return res.redirect("/users/logout");
 };
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(400).render("404", { pageTitle: "User not found" });
+  }
+  return res.render("users/profile", {
+    pageTitle: user.name,
+    user,
+  });
+};
