@@ -2,15 +2,18 @@ import Video from "../models/Video";
 import User from "../models/User";
 
 export const home = async (req, res) => {
-  const videos = await Video.find({}).sort({ createdAt: "desc" });
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   return res.render("home", { pageTitle: "Home", videos });
-  // 변수는 마음대로 넣어도됨 ex) {pageTitle : "Home", content : "Home!"}
-  // Video.find({}, (error, videos) => {
-  //  console.log("errors", error);
-  //  console.log("videos", videos);
-  // });
-  //= const handlSearch = (error, videos) => {console.log("errors",error) console.log("videos", videos)}
 };
+// 변수는 마음대로 넣어도됨 ex) {pageTitle : "Home", content : "Home!"}
+// Video.find({}, (error, videos) => {
+//  console.log("errors", error);
+//  console.log("videos", videos);
+// });
+//= const handlSearch = (error, videos) => {console.log("errors",error) console.log("videos", videos)}
+
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
@@ -107,12 +110,11 @@ export const search = async (req, res) => {
   const { keyword } = req.query;
   let videos = [];
   if (keyword) {
-    const videos = await Video.find({
+    videos = await Video.find({
       title: {
-        $regex: new RegExp(`^${keyword}$`, "i"),
+        $regex: new RegExp(`${keyword}$`, "i"),
       },
-    });
-    console.log(videos);
+    }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
 };
