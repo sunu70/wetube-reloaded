@@ -3,21 +3,23 @@ extends base
 block content
     video(src="/" + video.fileUrl, controls)
     div
-        p=video.description
-        small=video.createdAt
-    div
-        small Uploaded by 
-            a(href=`/users/${video.owner._id}`)=video.owner.name
-    if String(video.owner._id) === String(loggedInUser._id)
-        a(href=`${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr;
-
-
-
-//- 제일앞에 /가있으면 절대경로
-    a(href="/video/edit")--->localhost:4000/video/edit
-    a(href="video/edit")--->localhost:4000/videos/video/edit
-    a(href=`${video.id}/edit`)--->localhost:4000/videos/1/edit    
-
-//- video.views === 1? "view" : "views" -> video.views가 1일때, 참이면 view, 거짓이면 views
+        button#play Play
+        button#mute Mute
+        input(type="range",step="0.1", min="0", max="1")#volume
+        div
+            span#currenTime 00:00
+            span /
+            span#totalTime 00:00
+    //-
+        div
+            p=video.description
+            small=video.createdAt
+        div
+            small Uploaded by 
+                a(href=`/users/${video.owner._id}`)=video.owner.name
+        if String(video.owner._id) === String(loggedInUser._id)
+            a(href=`${video.id}/edit`) Edit Video &rarr;
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr;
+block scripts
+    script(src="/static/js/videoPlayer.js")
