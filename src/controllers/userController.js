@@ -126,7 +126,7 @@ export const finishGithubLogin = async (req, res) => {
       });
     }
     req.session.loggedIn = true;
-    req.session.user = user;
+    req.session.user = false;
     return res.redirect("/");
   } else {
     return res.redirect("/login");
