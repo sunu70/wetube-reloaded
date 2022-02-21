@@ -35,8 +35,9 @@ export const postJoin = async (req, res) => {
     });
   }
 };
-export const getLogin = (req, res) =>
+export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
+};
 
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
@@ -134,23 +135,20 @@ export const finishGithubLogin = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
+  req.flash("info", "Bye Bye");
   return res.redirect("/");
 };
 export const getEdit = (req, res) => {
-  return res.render("edit-profile", {
-    pageTitle: "Edit Profile",
-    user: req.session.user,
-  });
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id },
+      user: { _id, avatarUrl },
     },
     body: { name, email, username, location },
     file,
   } = req;
-  console.log(file);
   //const exists = await User.exists({ $or: [{ username }, { email }] });
   //if (exists) {
   //  return res.status(400).render("edit-profile", {
@@ -163,6 +161,7 @@ export const postEdit = async (req, res) => {
     {
       avatarUrl: file ? file.path : avatarUrl,
       // = avatarlUrl이 존재하지 않는다면 기존 avatarUrl 유지
+      name,
       email,
       username,
       location,
@@ -175,6 +174,7 @@ export const postEdit = async (req, res) => {
 
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "Can't change password.");
     return res.redirect("/");
   }
   return res.render("users/change-password", { pageTitle: "Change Password" });
@@ -202,6 +202,7 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPassword;
   await user.save();
+  req.flash("info", "Password updated");
   return res.redirect("/users/logout");
 };
 export const see = async (req, res) => {
