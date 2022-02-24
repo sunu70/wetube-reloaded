@@ -152,5 +152,5 @@ export const createComment = async (req, res) => {
   });
   video.comment.push(comment._id);
   video.save();
-  return res.sendStatus(201);
+  return res.sendStatus(201).json({ newCommentId: comment._id });
 };
